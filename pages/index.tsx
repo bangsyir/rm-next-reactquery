@@ -71,6 +71,13 @@ const Home: NextPage = (
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="container mx-auto px-4 py-4">
+        <div className="text-center pb-4">
+          <Link href={"/"}>
+            <h2 className="font-bold text-3xl">
+              The Rick and Morty Characters
+            </h2>
+          </Link>
+        </div>
         {isLoading ? (
           <Loading />
         ) : isError && error instanceof Error ? (
