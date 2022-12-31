@@ -1,7 +1,6 @@
 import { dehydrate, QueryClient, useQuery } from "@tanstack/react-query";
 import type {
   GetServerSideProps,
-  GetStaticProps,
   InferGetServerSidePropsType,
   NextPage,
 } from "next";
@@ -15,6 +14,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import Loading from "../components/Loading";
 
 const Home: NextPage = (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
@@ -30,9 +30,11 @@ const Home: NextPage = (
   const pageHandler = (next: boolean, page: number) => {
     if (next === true) {
       setPage(page + 1);
+      localStorage.setItem("redirectTo", `?page=${page + 1}`);
     } else {
       if (page > 1) {
         setPage(page - 1);
+        localStorage.setItem("redirectTo", `?page=${page - 1}`);
       }
     }
   };
@@ -44,18 +46,11 @@ const Home: NextPage = (
           <span>Alive - {species}</span>
         </div>
       );
-    } else if (status === "Dead") {
+    } else {
       return (
         <div className="flex items-center gap-1">
           <div className="h-2 w-2 rounded-full bg-red-500"></div>
           <span>Dead - {species}</span>
-        </div>
-      );
-    } else {
-      return (
-        <div className="flex items-center gap-1">
-          <div className="h-2 w-2 rounded-full bg-neutral-400"></div>
-          <span>Alive - {species}</span>
         </div>
       );
     }
@@ -77,29 +72,32 @@ const Home: NextPage = (
       </Head>
       <main className="container mx-auto px-4 py-4">
         {isLoading ? (
-          <div>Loading...</div>
+          <Loading />
         ) : isError && error instanceof Error ? (
           <div>{error.message}</div>
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {data.results.map((character: typeof props) => (
               <div
-                className=" flex items-center bg-neutral-600 rounded-md gap-1"
+                className="flex flex-wrap md:flex-nowrap items-center bg-neutral-600 rounded-md gap-1"
                 key={character.id}
               >
-                <div className="rounded-full">
+                <div className="rounded-full mx-auto md:mx-0">
                   <Image
                     src={character.image}
                     priority={false}
                     width="100"
                     height="100"
-                    objectFit="cover"
                     loading="lazy"
                     alt=""
                   />
                 </div>
                 <div className="p-2">
-                  <h2 className="text-lg font-bold">{character.name}</h2>
+                  <Link href={`/character/${character.id}`}>
+                    <h2 className="text-lg font-bold hover:text-orange-500">
+                      {character.name}
+                    </h2>
+                  </Link>
                   <div className="flex flex-col gap-2">
                     <span>
                       <Status
