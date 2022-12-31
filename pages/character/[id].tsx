@@ -45,7 +45,7 @@ const CharacterPage: NextPage = () => {
 
   // eslint-disable-next-line react-hooks/rules-of-hooks
   useEffect(() => {
-    const redirect = localStorage.getItem("redirectTo") || "page=1";
+    const redirect = localStorage.getItem("redirectTo") || "?page=1";
     SetRedirectTo(redirect);
   }, []);
   return (
