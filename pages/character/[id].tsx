@@ -7,6 +7,7 @@ import { getCharacter } from "../../libs/characters";
 import { ArrowLeftCircleIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import Footer from "../../components/Footer";
 
 export const Status = ({ status }: { status: string }) => {
   return (
@@ -49,19 +50,19 @@ const CharacterPage: NextPage = () => {
     SetRedirectTo(redirect);
   }, []);
   return (
-    <div>
+    <div className="container mx-auto px-4 pt-8 flex flex-col h-screen">
+      <Link href={`/${redirectTo}`}>
+        <div className="pb-4 flex items-center gap-2 hover:text-orange-500">
+          <ArrowLeftCircleIcon className="h-10 w-10" />
+          <span className="text-lg">Back</span>
+        </div>
+      </Link>
       {isLoading ? (
         <div>loading...</div>
       ) : isError && error instanceof Error ? (
-        <>{error.message}</>
+        <div className="text-center text-2xl text-red-500">{error.message}</div>
       ) : (
-        <div className="container mx-auto px-4 pt-8">
-          <Link href={`/${redirectTo}`}>
-            <div className="pb-4 flex items-center gap-2 hover:text-orange-500">
-              <ArrowLeftCircleIcon className="h-10 w-10" />
-              <span className="text-lg">Back</span>
-            </div>
-          </Link>
+        <>
           <div className="flex flex-wrap gap-2 md:gap-8">
             <div className="flex flex-wrap flex-col items-center gap-4">
               <Image
@@ -105,15 +106,15 @@ const CharacterPage: NextPage = () => {
               </div>
             </div>
           </div>
-        </div>
+        </>
       )}
+      <Footer />
     </div>
   );
 };
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const param = ctx.params;
-  console.log(param?.id);
 
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery(["character"], () => {
