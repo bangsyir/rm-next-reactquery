@@ -65,94 +65,98 @@ const Home: NextPage = (
   }, [router]);
 
   return (
-    <div className="container mx-auto px-4 pt-4 pb-10">
-      <Head>
-        <title>rick and morty</title>
-        <meta name="description" content="rick and morty" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <main>
-        <div className="text-center pb-4">
-          <Link href={"/"}>
-            <h2 className="font-bold text-3xl">
-              The Rick and Morty Characters
-            </h2>
-          </Link>
-        </div>
-        {isLoading ? (
-          <Loading />
-        ) : isError && error instanceof Error ? (
-          <div>{error.message}</div>
-        ) : (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {data.results.map((character: typeof props) => (
-              <div
-                className="flex flex-wrap md:flex-nowrap items-center bg-neutral-600 rounded-md gap-1"
-                key={character.id}
-              >
-                <div className="rounded-full mx-auto md:mx-0">
-                  <Image
-                    src={character.image}
-                    priority={false}
-                    width="100"
-                    height="100"
-                    loading="lazy"
-                    alt=""
-                  />
-                </div>
-                <div className="p-2">
-                  <Link href={`/character/${character.id}`}>
-                    <h2 className="text-lg font-bold hover:text-orange-500">
-                      {character.name}
-                    </h2>
-                  </Link>
-                  <div className="flex flex-col gap-2">
-                    <span>
-                      <Status
-                        status={character.status}
-                        species={character.species}
-                      />
-                    </span>
-                    <div>
-                      <p className="text-neutral-400">Last known location :</p>
-                      <span>{character.location.name}</span>
-                    </div>
-                    <div>
-                      <p className="text-neutral-400">Origin :</p>
-                      <span>{character.origin.name}</span>
+    <>
+      <div className="container mx-auto px-4 pt-4 pb-10">
+        <Head>
+          <title>rick and morty</title>
+          <meta name="description" content="rick and morty" />
+          <link rel="icon" href="/favicon.ico" />
+        </Head>
+        <main>
+          <div className="text-center pb-4">
+            <Link href={"/"}>
+              <h2 className="font-bold text-3xl">
+                The Rick and Morty Characters
+              </h2>
+            </Link>
+          </div>
+          {isLoading ? (
+            <Loading />
+          ) : isError && error instanceof Error ? (
+            <div>{error.message}</div>
+          ) : (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {data.results.map((character: typeof props) => (
+                <div
+                  className="flex flex-wrap md:flex-nowrap items-center bg-neutral-600 rounded-md gap-1"
+                  key={character.id}
+                >
+                  <div className="rounded-full mx-auto md:mx-0">
+                    <Image
+                      src={character.image}
+                      priority={false}
+                      width="100"
+                      height="100"
+                      loading="lazy"
+                      alt=""
+                    />
+                  </div>
+                  <div className="p-2">
+                    <Link href={`/character/${character.id}`}>
+                      <h2 className="text-lg font-bold hover:text-orange-500">
+                        {character.name}
+                      </h2>
+                    </Link>
+                    <div className="flex flex-col gap-2">
+                      <span>
+                        <Status
+                          status={character.status}
+                          species={character.species}
+                        />
+                      </span>
+                      <div>
+                        <p className="text-neutral-400">
+                          Last known location :
+                        </p>
+                        <span>{character.location.name}</span>
+                      </div>
+                      <div>
+                        <p className="text-neutral-400">Origin :</p>
+                        <span>{character.origin.name}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
+          )}
+          <div className="fixed bottom-0 left-0 right-0">
+            <div className="flex justify-center gap-6">
+              <Link href={`?page=${page > 1 ? page - 1 : 1}`}>
+                <div
+                  className="bg-neutral-900 border border-neutral-600 px-4 py-1 rounded-md shadow flex items-center gap-2 cursor-pointer"
+                  onClick={() => pageHandler(false, page)}
+                >
+                  <ArrowSmallLeftIcon className="h-5 w-5" /> Prev
+                </div>
+              </Link>
+              <Link href={`?page=${data?.info.next !== null ? page + 1 : 1}`}>
+                <div
+                  className="bg-neutral-900 border border-neutral-600 px-4 py-1 rounded-md shadow flex items-center gap-2 cursor-pointer"
+                  onClick={() => pageHandler(true, page)}
+                >
+                  <span className="bg-gradient-to-r from-rose-500 to-violet-500 bg-clip-text text-transparent">
+                    Next
+                  </span>{" "}
+                  <ArrowSmallRightIcon className="h-5 w-5" />
+                </div>
+              </Link>
+            </div>
           </div>
-        )}
-        <div className="fixed bottom-0 left-0 right-0">
-          <div className="flex justify-center gap-6">
-            <Link href={`?page=${page > 1 ? page - 1 : 1}`}>
-              <div
-                className="bg-neutral-900 border border-neutral-600 px-4 py-1 rounded-md shadow flex items-center gap-2 cursor-pointer"
-                onClick={() => pageHandler(false, page)}
-              >
-                <ArrowSmallLeftIcon className="h-5 w-5" /> Prev
-              </div>
-            </Link>
-            <Link href={`?page=${data?.info.next !== null ? page + 1 : 1}`}>
-              <div
-                className="bg-neutral-900 border border-neutral-600 px-4 py-1 rounded-md shadow flex items-center gap-2 cursor-pointer"
-                onClick={() => pageHandler(true, page)}
-              >
-                <span className="bg-gradient-to-r from-rose-500 to-violet-500 bg-clip-text text-transparent">
-                  Next
-                </span>{" "}
-                <ArrowSmallRightIcon className="h-5 w-5" />
-              </div>
-            </Link>
-          </div>
-        </div>
-      </main>
+        </main>
+      </div>
       <Footer />
-    </div>
+    </>
   );
 };
 
