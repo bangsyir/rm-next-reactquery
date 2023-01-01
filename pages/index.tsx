@@ -67,8 +67,8 @@ const Home: NextPage = (
     <>
       <div className="container mx-auto px-4 pt-4 pb-10">
         <Head>
-          <title>rick and morty</title>
-          <meta name="description" content="rick and morty" />
+          <title>the rick and morty</title>
+          <meta name="description" content="The rick and morty characters" />
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <main>
