@@ -93,10 +93,10 @@ const Home: NextPage = (
                   <div className="rounded-full mx-auto md:mx-0">
                     <Image
                       src={character.image}
-                      priority={false}
+                      priority={true}
                       width="100"
                       height="100"
-                      loading="lazy"
+                      loading="eager"
                       alt=""
                     />
                   </div>

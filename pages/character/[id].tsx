@@ -79,10 +79,10 @@ const CharacterPage: NextPage = () => {
               <div className="flex flex-wrap flex-col items-center gap-4">
                 <Image
                   src={data?.image}
-                  priority={false}
+                  loading={"eager"}
+                  priority={true}
                   width="200"
                   height="200"
-                  loading="lazy"
                   alt=""
                 />
                 <h1 className="font-bold text-xl whitespace-nowrap">
