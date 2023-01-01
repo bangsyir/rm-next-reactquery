@@ -15,7 +15,7 @@ export const Status = ({ status }: { status: string }) => {
     <>
       <div
         className={`rounded-md ${
-          status === "Dead" ? "bg-red-500" : "bg-green-500"
+          status === "Dead" ? "bg-red-600" : "bg-green-600"
         } px-2 py-1`}
       >
         <div className="flex items-center gap-2">
