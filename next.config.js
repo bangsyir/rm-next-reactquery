@@ -3,8 +3,12 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ["rickandmortyapi.com"]
-  }
-}
+    domains: ["rickandmortyapi.com"],
+  },
+  i18n: {
+    locales: ["en"],
+    defaultLocale: "en",
+  },
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;
