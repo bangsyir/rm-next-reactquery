@@ -15,6 +15,7 @@ import {
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Loading from "../components/Loading";
+import Footer from "../components/Footer";
 
 const Home: NextPage = (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
@@ -64,13 +65,13 @@ const Home: NextPage = (
   }, [router]);
 
   return (
-    <>
+    <div className="container mx-auto px-4 pt-4 pb-10">
       <Head>
         <title>rick and morty</title>
         <meta name="description" content="rick and morty" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className="container mx-auto px-4 py-4">
+      <main>
         <div className="text-center pb-4">
           <Link href={"/"}>
             <h2 className="font-bold text-3xl">
@@ -150,7 +151,8 @@ const Home: NextPage = (
           </div>
         </div>
       </main>
-    </>
+      <Footer />
+    </div>
   );
 };
 
