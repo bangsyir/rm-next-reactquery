@@ -22,7 +22,6 @@ const Home: NextPage = (
 ) => {
   const [page, setPage] = useState(1);
   const router = useRouter();
-  // console.log(router.query.page === undefined)
   const { isLoading, isError, data, error } = useQuery(
     ["characters", page],
     () => getCharacters(page)
@@ -88,7 +87,7 @@ const Home: NextPage = (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {data.results.map((character: typeof props) => (
                 <div
-                  className="flex flex-wrap md:flex-nowrap items-center bg-neutral-600 rounded-md gap-1"
+                  className="flex flex-wrap md:flex-nowrap items-center bg-neutral-800 rounded-md gap-1"
                   key={character.id}
                 >
                   <div className="rounded-full mx-auto md:mx-0">
