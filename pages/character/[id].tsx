@@ -27,12 +27,18 @@ export const Status = ({ status }: { status: string }) => {
   );
 };
 const CharacterPage: NextPage = () => {
-  const [redirectTo, SetRedirectTo] = useState("?page=1");
+  const [redirectTo, setRedirectTo] = useState("?page=1");
   const router = useRouter();
   const characterId = router.query?.id;
   const { isLoading, isError, data, error } = useQuery(["character"], () =>
     getCharacter(router.query.id)
   );
+
+  useEffect(() => {
+    const redirect = localStorage.getItem("redirectTo") || "?page=1";
+    setRedirectTo(redirect);
+  }, []);
+  // render not fount page
   if (!characterId) {
     return <NotFoundPage />;
   }
@@ -44,11 +50,7 @@ const CharacterPage: NextPage = () => {
     minute: "2-digit",
     second: "2-digit",
   });
-
-  useEffect(() => {
-    const redirect = localStorage.getItem("redirectTo") || "?page=1";
-    SetRedirectTo(redirect);
-  }, []);
+  // render if data availavle
   return (
     <>
       <div className="container mx-auto px-4 pt-8 flex flex-col h-screen">
