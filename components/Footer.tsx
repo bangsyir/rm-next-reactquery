@@ -5,7 +5,7 @@ export default function Footer() {
       <p className="flex flex-wrap items-center">
         © {year}. All rights reserved. Build with ❤️ by&nbsp;
         <a
-          href="https://github.com/bangsyir"
+          href="https://bangsyir.vercel.app"
           className="text-green-500 font-bold"
           target="_blank"
           rel="noreferrer"
