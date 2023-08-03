@@ -12,10 +12,10 @@ import {
   ArrowSmallLeftIcon,
   ArrowSmallRightIcon,
 } from "@heroicons/react/24/outline";
-import { useRouter } from "next/router";
 import Link from "next/link";
 import Loading from "../components/Loading";
 import Footer from "../components/Footer";
+import { useRouter } from "next/router"
 
 const Home: NextPage = (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
@@ -87,10 +87,10 @@ const Home: NextPage = (
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {data.results.map((character: typeof props) => (
                 <div
-                  className="flex flex-wrap md:flex-nowrap items-center bg-neutral-800 rounded-md gap-1"
+                  className="flex flex-wrap md:flex-nowrap items-center bg-neutral-800 rounded-md gap-1 hover:shadow-lg hover:shadow-gray-500/30"
                   key={character.id}
                 >
-                  <div className="rounded-full mx-auto md:mx-0">
+                  <div className="rounded-full">
                     <Image
                       src={character.image}
                       priority={false}
@@ -129,26 +129,26 @@ const Home: NextPage = (
               ))}
             </div>
           )}
-          <div className="fixed bottom-0 left-0 right-0">
+          <div className="fixed bottom-4 left-0 right-0">
             <div className="flex justify-center gap-6">
               <Link href={`?page=${page > 1 ? page - 1 : 1}`}>
-                <div
-                  className="bg-neutral-900 border border-neutral-600 px-4 py-1 rounded-md shadow flex items-center gap-2 cursor-pointer"
+                <button
+                  className="bg-neutral-900 border border-neutral-600 px-4 py-2 rounded-md shadow shadow-gray-500/70 flex items-center gap-2 cursor-pointer"
                   onClick={() => pageHandler(false, page)}
                 >
                   <ArrowSmallLeftIcon className="h-5 w-5" /> Prev
-                </div>
+                </button>
               </Link>
               <Link href={`?page=${data?.info.next !== null ? page + 1 : 1}`}>
-                <div
-                  className="bg-neutral-900 border border-neutral-600 px-4 py-1 rounded-md shadow flex items-center gap-2 cursor-pointer"
+                <button
+                  className="bg-neutral-900 border border-neutral-600 px-4 py-2 rounded-md shadow shadow-gray-500/70 flex items-center gap-2 cursor-pointer"
                   onClick={() => pageHandler(true, page)}
                 >
                   <span className="bg-gradient-to-r from-rose-500 to-violet-500 bg-clip-text text-transparent">
                     Next
                   </span>{" "}
                   <ArrowSmallRightIcon className="h-5 w-5" />
-                </div>
+                </button>
               </Link>
             </div>
           </div>
@@ -166,7 +166,6 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   await queryClient.prefetchQuery(["characters", currentPage], () =>
     getCharacters(Number(currentPage))
   );
-  // const characters = await getCharacters(Number(page));
   return {
     props: { dehydrateState: dehydrate(queryClient) },
   };
