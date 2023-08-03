@@ -15,7 +15,7 @@ import {
 import Link from "next/link";
 import Loading from "../components/Loading";
 import Footer from "../components/Footer";
-import { useRouter } from "next/router"
+import { useRouter } from "next/router";
 
 const Home: NextPage = (
   props: InferGetServerSidePropsType<typeof getServerSideProps>
@@ -90,15 +90,18 @@ const Home: NextPage = (
                   className="flex flex-wrap md:flex-nowrap items-center bg-neutral-800 rounded-md gap-1 hover:shadow-lg hover:shadow-gray-500/30"
                   key={character.id}
                 >
-                  <div className="rounded-full">
-                    <Image
-                      src={character.image}
-                      priority={false}
-                      width="100"
-                      height="100"
-                      loading="lazy"
-                      alt={character.name}
-                    />
+                  <div className="bg-neutral-700/30 w-full md:w-1/2 md:h-full flex items-center justify-center">
+                    <Link href={`/character/${character.id}`}>
+                      <Image
+                        src={character.image}
+                        priority={false}
+                        width="400"
+                        height="400"
+                        loading="lazy"
+                        alt={character.name}
+                        className="rounded-md object-contain"
+                      />
+                    </Link>
                   </div>
                   <div className="p-2">
                     <Link href={`/character/${character.id}`}>
@@ -152,9 +155,9 @@ const Home: NextPage = (
               </Link>
             </div>
           </div>
+          <Footer />
         </main>
       </div>
-      <Footer />
     </>
   );
 };
